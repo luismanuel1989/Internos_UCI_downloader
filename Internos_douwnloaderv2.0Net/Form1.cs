@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using Internos_douwnloaderv2._0Net.Class;
 using System.Runtime.InteropServices;
 using Microsoft.WindowsAPICodePack.Taskbar;
+using System.Globalization;
 
 namespace Internos_douwnloaderv2._0Net
 {
@@ -32,7 +33,7 @@ namespace Internos_douwnloaderv2._0Net
 
 
         public Form1()
-        {
+        {           
             DateTime expire = new DateTime(2020,4,12);            
             if ((DateTime.Now - expire).TotalDays>30)
             {
@@ -56,6 +57,7 @@ namespace Internos_douwnloaderv2._0Net
             //progressBar2.SetState(2);
 
         }
+
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
