@@ -46,16 +46,13 @@ namespace Internos_douwnloaderv2._0Net
                 {
                     System.Environment.Exit(1);
                 }
-            }
-            
+            }            
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
             InitializeComponent();
             panel2.Visible = false;
             checkBox1.Checked = true;
-            pool.Threads_lim1 = 2;
-            
+            pool.Threads_lim1 = 2;            
             //progressBar2.SetState(2);
-
         }
 
 
@@ -91,22 +88,31 @@ namespace Internos_douwnloaderv2._0Net
                     AutoClosingMessageBox.Show("Please wait a second, we are gathering the information", "Gathering information", 4000);
 
                 });
-                
-                DateTime start = DateTime.Now;
-                downloadStartTime = start;
-                string html = Obtain_HTML(url);
-                
-                define_url_base(html);
-                //MessageBox.Show(url_base);
-                List<string> videosList= ObtainVideosList(html);
-                videosList.Sort();
-                panel1.Visible = false;
-                panel2.Visible = true;                                
-                foreach (string item in videosList)
-                {                    
-                    checkedListBox1.Items.Add(item);                    
+                try
+                {
+
+                    DateTime start = DateTime.Now;
+                    downloadStartTime = start;
+                    string html = Obtain_HTML(url);
+
+                    define_url_base(html);
+                    //MessageBox.Show(url_base);
+                    List<string> videosList = ObtainVideosList(html);
+                    videosList.Sort();
+                    panel1.Visible = false;
+                    panel2.Visible = true;
+                    foreach (string item in videosList)
+                    {
+                        checkedListBox1.Items.Add(item);
+                    }
+                    label1.Text = "Information requested in: " + String.Format("{0:0.00}", (DateTime.Now - start).TotalSeconds) + " seconds";
                 }
-                label1.Text = "Information requested in: " + String.Format("{0:0.00}", (DateTime.Now - start).TotalSeconds) + " seconds";
+                catch (Exception excepction_object)
+                {
+                    Task.Run(()=> {
+                        AutoClosingMessageBox.Show("There was a problem connecting to internos, and was this: \n"+ excepction_object.ToString(), "Connection error", 40000);
+                    });
+                }
             }
             
         }
