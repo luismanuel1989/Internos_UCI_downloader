@@ -36,7 +36,7 @@ namespace Internos_douwnloaderv2._0Net
             DateTime expire = new DateTime(2020,4,12);            
             if ((DateTime.Now - expire).TotalDays>30)
             {
-                MessageBox.Show("Please contact lmvidal@uci.cu for a free update", "Application out of range", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Please contact luismanuel.8902@gmail.com for a free update", "Application out of range", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 if (System.Windows.Forms.Application.MessageLoop)
                 {
                     System.Windows.Forms.Application.Exit();
