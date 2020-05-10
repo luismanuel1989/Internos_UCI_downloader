@@ -49,6 +49,16 @@ namespace Internos_douwnloaderv2._0Net
             }            
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
             InitializeComponent();
+            label1.ForeColor = Color.White;
+            label2.ForeColor = Color.White;
+            label3.ForeColor = Color.White;
+            label4.ForeColor = Color.White;
+            label5.ForeColor = Color.White;
+            label6.ForeColor = Color.White;
+            label7.ForeColor = Color.White;
+            label8.ForeColor = Color.White;
+            checkBox1.ForeColor = Color.White;
+
             panel2.Visible = false;
             checkBox1.Checked = true;
             pool.Threads_lim1 = 2;            
