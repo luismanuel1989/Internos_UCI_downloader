@@ -29,7 +29,9 @@ namespace Internos_douwnloaderv2._0Net.Class
             }
 
         }
-        
+        public List<string> GetVideosList() {
+            return videos_list;
+        }
         public int get_videos_Count() {
             return videos_list.Count;
         }

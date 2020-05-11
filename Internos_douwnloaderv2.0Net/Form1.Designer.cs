@@ -33,6 +33,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -53,7 +54,6 @@
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox1
@@ -92,17 +92,31 @@
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.SystemColors.Highlight;
+            this.panel2.Controls.Add(this.checkBox2);
             this.panel2.Controls.Add(this.checkBox1);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.button3);
             this.panel2.Controls.Add(this.button2);
             this.panel2.Controls.Add(this.checkedListBox1);
-            this.panel2.Location = new System.Drawing.Point(68, 5);
+            this.panel2.Location = new System.Drawing.Point(24, 5);
             this.panel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(572, 423);
+            this.panel2.Size = new System.Drawing.Size(572, 451);
             this.panel2.TabIndex = 2;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox2.Location = new System.Drawing.Point(9, 420);
+            this.checkBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(223, 27);
+            this.checkBox2.TabIndex = 6;
+            this.checkBox2.Text = "Download as .mp3";
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // checkBox1
             // 
@@ -169,6 +183,7 @@
             // 
             // panel3
             // 
+            this.panel3.BackColor = System.Drawing.SystemColors.Highlight;
             this.panel3.Controls.Add(this.label8);
             this.panel3.Controls.Add(this.progressBar3);
             this.panel3.Controls.Add(this.label7);
@@ -178,7 +193,7 @@
             this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.progressBar1);
             this.panel3.Controls.Add(this.label2);
-            this.panel3.Location = new System.Drawing.Point(23, 5);
+            this.panel3.Location = new System.Drawing.Point(7, 5);
             this.panel3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(774, 418);
@@ -274,25 +289,25 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.SystemColors.Highlight;
-            this.panel4.Controls.Add(this.panel3);
-            this.panel4.Controls.Add(this.panel2);
-            this.panel4.Location = new System.Drawing.Point(-10, 0);
+            this.panel4.Location = new System.Drawing.Point(-7, -10);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1195, 644);
+            this.panel4.Size = new System.Drawing.Size(1214, 659);
             this.panel4.TabIndex = 4;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(796, 438);
+            this.ClientSize = new System.Drawing.Size(784, 475);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel4);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
-            this.Text = "Internos Downloader 2.0";
+            this.Text = "Internos Downloader 2.1";
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseClick);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -300,7 +315,6 @@
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -327,6 +341,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ProgressBar progressBar3;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.Panel panel4;
     }
 }

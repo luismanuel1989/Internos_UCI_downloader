@@ -13,14 +13,17 @@ using Internos_douwnloaderv2._0Net.Class;
 using System.Runtime.InteropServices;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using System.Globalization;
-
+using System.Drawing.Text;
+using NReco.VideoConverter;
+using System.IO;
 namespace Internos_douwnloaderv2._0Net
 {
     
     public partial class Form1 : Form
     {
         TaskbarManager taskbar = TaskbarManager.Instance;
-        
+
+        List<string> videosList = new List<string>();
         string url_base;
         Thread_Pool pool = new Thread_Pool();
         DateTime downloadStartTime;
@@ -58,6 +61,7 @@ namespace Internos_douwnloaderv2._0Net
             label7.ForeColor = Color.White;
             label8.ForeColor = Color.White;
             checkBox1.ForeColor = Color.White;
+            checkBox2.ForeColor = Color.White;
 
             panel2.Visible = false;
             checkBox1.Checked = true;
@@ -107,7 +111,7 @@ namespace Internos_douwnloaderv2._0Net
 
                     define_url_base(html);
                     //MessageBox.Show(url_base);
-                    List<string> videosList = ObtainVideosList(html);
+                    videosList = ObtainVideosList(html);
                     videosList.Sort();
                     panel1.Visible = false;
                     panel2.Visible = true;
@@ -295,8 +299,17 @@ namespace Internos_douwnloaderv2._0Net
             
             if (pool.AllVideoOneHundredPercentFinished())
             {
-                MessageBox.Show("Download process finished in " + ((DateTime.Now - downloadStartTime).ToString()) + " seconds","Process finished",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                if (!checkBox2.Checked)
+                {
+                    MessageBox.Show("Download process finished in " + ((DateTime.Now - downloadStartTime).ToString()) + " seconds", "Process finished", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    ConvertAllVideosMp3();
+                }
+                
             }
+            
 
             pool.Actual_amount_threads -= 1;
             if (pool.Index == pool.get_videos_Count() && !Finished_message_throwed)
@@ -309,12 +322,59 @@ namespace Internos_douwnloaderv2._0Net
             MyOwnFactoryMethod_Next_download();
 
         }
+        private void ConvertVideoToMp3(string title, string path) {
+            try
+            {
+                int splitCounter = title.Split('.').Length;
+                int count = 0;
+                string titleWithoutExtension = "";
+                foreach (var item in title.Split('.'))
+                {
+                    if (splitCounter - count != 1)
+                    {
+                        titleWithoutExtension += item + ".";
+                    }
+                    count++;
+                }
+                titleWithoutExtension += "mp3";
+                var conversion = new FFMpegConverter();
+                string output = path + "\\" + title.Split('.');
+                conversion.ConvertMedia((path+"\\"+title).Trim(), path+"\\"+titleWithoutExtension, "mp3");
+                
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Exception details\n "+ex.ToString(),"There was an exception");
+            }
+        
+        }
+        private void RemoveVideoAfterConversion(string title, string path) {
+            try
+            {
+                File.Delete((path + "\\" + title).Trim());
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("The exception was:\n"+ex.ToString(),"There was an exception");
+            }
+        
+        }
         private void client_DownloadDataCompleted2(object sender, AsyncCompletedEventArgs e)
         {
 
             if (pool.AllVideoOneHundredPercentFinished())
             {
-                MessageBox.Show("Download process finished in " + ((DateTime.Now - downloadStartTime).ToString()) + " seconds", "Process finished", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (!checkBox2.Checked)
+                {
+                    MessageBox.Show("Download process finished in " + ((DateTime.Now - downloadStartTime).ToString()) + " seconds", "Process finished", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    ConvertAllVideosMp3();
+                }
+
             }
 
             pool.Actual_amount_threads -= 1;
@@ -326,6 +386,24 @@ namespace Internos_douwnloaderv2._0Net
             asyncTask2Busy = false;
             pool.UpdateDownloadPercentVideosList(asyncTask2VideoIndex, 100);
             MyOwnFactoryMethod_Next_download();
+
+        }
+        private void ConvertAllVideosMp3() {
+            string all_vids = "";
+            foreach (string video in pool.GetVideosList())
+            {
+                all_vids += video + "\n";
+                Task.Run(() =>
+                {
+                    ConvertVideoToMp3(video, pool.Folder_path);
+                    RemoveVideoAfterConversion(video, pool.Folder_path);
+
+                });               
+                
+            }
+            
+            MessageBox.Show(all_vids+"\n They are in folder:\n"+pool.Folder_path, "We are converting all this videos to mp3:");
+            
 
         }
         private void client_DownloadProgressChanged1(object sender, DownloadProgressChangedEventArgs e)
